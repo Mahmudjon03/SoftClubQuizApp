@@ -7,7 +7,8 @@ namespace Domain.GetFilter
         public int PageSize { get; set; }
         public PaginationFilder()
         {
-
+            PageNumber = 1;
+            PageSize = 10;
         }
         public PaginationFilder(int pageNumber, int pageSize)
         {

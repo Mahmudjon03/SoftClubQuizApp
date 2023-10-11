@@ -2,6 +2,6 @@
 {
     public class GetCourseDto:BaseCourseDto
     {
-        public string CourseFoto { get; set; }
+        public string? CourseFoto { get; set; }
     }
 }
