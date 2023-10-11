@@ -1,14 +1,15 @@
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Data;
-<<<<<<< HEAD
+
 using Infrastructure.Servises.CourseServises;
 using Infrastructure.Servises.GroupServises;
-=======
+
 using Infrastructure.Servises.AnswerServices;
 using Infrastructure.Servises.QuestionServices;
 using Infrastructure.Servises.TestServices;
->>>>>>> e4b72ca002f84a4861aa5d70c7c826175e876d89
+
+
 using Infrastructure.Servises.UserServise;
 using Microsoft.EntityFrameworkCore;
 using Web;
@@ -21,18 +22,18 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(c => c.UseNpgsql(con));
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.Services.AddScoped<IUserServise,UserServise>();
-<<<<<<< HEAD
+
 builder.Services.AddScoped<ICourseServise,CourseServise>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IGroupServise, GroupServise>();
 
-
-
-=======
 builder.Services.AddScoped<ITestService,TestService>();
 builder.Services.AddScoped<IQuestionService,QuestionService>();
 builder.Services.AddScoped<IAnswerService,AnswerService>();
->>>>>>> e4b72ca002f84a4861aa5d70c7c826175e876d89
+
+builder.Services.AddScoped<ITestService,TestService>();
+builder.Services.AddScoped<IQuestionService,QuestionService>();
+builder.Services.AddScoped<IAnswerService,AnswerService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
