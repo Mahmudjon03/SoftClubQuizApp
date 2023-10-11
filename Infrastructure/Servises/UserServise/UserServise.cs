@@ -34,7 +34,7 @@ public class UserServise : IUserServise
     public async Task<Response<GetUserDto>> DeleteUser(int id)
     {
         var Delete =await _context.Users.FindAsync(id);
-        if (Delete != null) return new Response<GetUserDto>("User Not Found");
+        if (Delete == null) return new Response<GetUserDto>("User Not Found");
     var resUser= _mapper.Map<GetUserDto>(Delete);
          _context.Users.Remove(Delete);
          await _context.SaveChangesAsync();
@@ -45,7 +45,7 @@ public class UserServise : IUserServise
     {
         var users = _context.Users.AsQueryable();
 
-        if (filter.Name != null) users = users.Where(c => c.FirstName.Contains(filter.Name));
+        if (filter.Name != null) users = users.Where(c => (c.FirstName).ToLower().Contains((filter.Name).ToLower()));
 
         var filtersPage = new GetFilter(filter.PageNumber, filter.PageSize);
 
@@ -54,6 +54,8 @@ public class UserServise : IUserServise
         var pogRes = users.Skip((filter.PageNumber - 1) * filter.PageSize).Take(filter.PageSize);
 
         var resUser = _mapper.Map<List<GetUserDto>>(pogRes);
+        
+         
        
         return new PoginationResponse<List<GetUserDto>>(resUser, filter.PageNumber, filter.PageSize, totalRecords);
 
@@ -62,8 +64,11 @@ public class UserServise : IUserServise
     public async Task<Response<GetUserDto>> GetUserById(int id)
     {
         var users = await _context.Users.FindAsync(id);
-        if (users != null) return new Response<GetUserDto>("User Not Found");
+       
+        if (users == null) return new Response<GetUserDto>("User Not Found");
+        
         var resUser=_mapper.Map<GetUserDto>(users);
+        
         return new Response<GetUserDto>(resUser);
 
     }
@@ -71,9 +76,10 @@ public class UserServise : IUserServise
     public async Task<Response<GetUserDto>> UpdateUser(AddUserDto user)
     {
         var _user = await _context.Users.FindAsync(user.Id);
-        if (_user != null) return new Response<GetUserDto>("User Not Found");
-        _user = _mapper.Map<User>(user);
+        if (_user == null) return new Response<GetUserDto>("User Not Found");
+        _mapper.Map(user,_user);
         var resUser=_mapper.Map<GetUserDto>(user);
+        await _context.SaveChangesAsync();
         return new Response<GetUserDto>(resUser);   
     }
 

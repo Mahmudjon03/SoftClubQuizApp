@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace Web
@@ -6,6 +6,25 @@ namespace Web
     public class FileService : IFileService
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public FileService(IWebHostEnvironment webHostEnvironment)=>_webHostEnvironment = webHostEnvironment;
+        public async Task<string> AddFileAsync(string folderName, IFormFile file)
+        {
+            try
+            {
+                string folderPath = Path.Combine(_webHostEnvironment.WebRootPath, folderName);
+                if (Directory.Exists(folderPath) == false) Directory.CreateDirectory(folderPath);
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                folderPath = Path.Combine(folderPath, fileName);
+                using var stream = new FileStream(folderPath, FileMode.OpenOrCreate);
+                await file.CopyToAsync(stream);
+                return fileName;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
 
         public FileService(IWebHostEnvironment webHostEnvironment)
         {
@@ -25,6 +44,7 @@ namespace Web
 
        
 
+
         public async Task<bool> DeleteFileAsync(string folderName, string fileName)
         {
             return await Task.Run(() =>
@@ -38,6 +58,9 @@ namespace Web
                 return false;
             });
         }
+
+
+ }
 
         public async Task<string> UpdateFileAsync(string folderName, IFormFile newFile, string lastFileName)
         {
