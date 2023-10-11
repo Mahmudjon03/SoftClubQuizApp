@@ -9,6 +9,7 @@ namespace Domain.Entities
         [MaxLength(300)]
         public string Title { get; set; }
         public int TestId { get; set; }
+        public List<Answer>? Answers { get; set; }
         public Test Test { get; set; }
     }
 }

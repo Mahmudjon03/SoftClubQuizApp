@@ -8,8 +8,7 @@ namespace Domain.Entities
         public int Id { get; set; }
         [MaxLength(300)]
         public string Name { get; set; }
-        public List<Question> Question { get; set; }
+        public List<Question> Questions { get; set; }
         public List<UserTest> UserTest { get; set; }
-
     }
 }
