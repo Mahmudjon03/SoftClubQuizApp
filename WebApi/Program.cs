@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Domain;
 using Infrastructure;
 using Infrastructure.Data;
 
@@ -19,7 +19,7 @@ var con = builder.Configuration.GetConnectionString("DefaultConnection");
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DataContext>(c => c.UseNpgsql(con));
+builder.Services.AddDbContext<DataContext>(c => c.UseNpgsql(con).UseLazyLoadingProxies());
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.AddScoped<IUserServise,UserServise>();

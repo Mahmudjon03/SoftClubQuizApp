@@ -1,19 +1,13 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Entities
+﻿namespace Domain
 {
     public class Group
     {
         [Key]
         public int Id { get; set; }
         [MaxLength(100)]
-        public string Name { get; set; }
-        [ForeignKey("Course")]
+        public string Name { get; set; } = null!;
         public int CourseId { get; set; }
-        public Course Course { get; set; } 
-        public List<UserGroup> userGroup { get; set; } 
-
+        public virtual Course Course { get; set; } 
+        public virtual ICollection<UserGroup> userGroup { get; set; } 
     }
 }

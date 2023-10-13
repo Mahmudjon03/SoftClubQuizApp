@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class dfdd : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,25 +17,12 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CourseFoto = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CourseFoto = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,7 +36,7 @@ namespace Infrastructure.Migrations
                     Phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<int>(type: "integer", maxLength: 50, nullable: false),
+                    UserType = table.Column<int>(type: "integer", maxLength: 50, nullable: false),
                     Active = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -58,12 +45,25 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserTests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CourseId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -78,44 +78,20 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Questions",
+                name: "Tests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    TestId = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
+                    MentorId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.PrimaryKey("PK_Tests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Questions_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserTests",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    TestId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserTests", x => new { x.UserId, x.TestId });
-                    table.ForeignKey(
-                        name: "FK_UserTests_Tests_TestId",
-                        column: x => x.TestId,
-                        principalTable: "Tests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserTests_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Tests_Users_MentorId",
+                        column: x => x.MentorId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -146,12 +122,65 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Questions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    TestId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Questions_Tests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Tests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentTest",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudentId = table.Column<int>(type: "integer", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: false),
+                    TestId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentTest", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentTest_Groups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentTest_Tests_TestId",
+                        column: x => x.TestId,
+                        principalTable: "Tests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentTest_Users_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     QuestionId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -182,14 +211,29 @@ namespace Infrastructure.Migrations
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserGroups_GroupId",
-                table: "UserGroups",
+                name: "IX_StudentTest_GroupId",
+                table: "StudentTest",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTests_TestId",
-                table: "UserTests",
+                name: "IX_StudentTest_StudentId",
+                table: "StudentTest",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentTest_TestId",
+                table: "StudentTest",
                 column: "TestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tests_MentorId",
+                table: "Tests",
+                column: "MentorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGroups_GroupId",
+                table: "UserGroups",
+                column: "GroupId");
         }
 
         /// <inheritdoc />
@@ -197,6 +241,9 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Answers");
+
+            migrationBuilder.DropTable(
+                name: "StudentTest");
 
             migrationBuilder.DropTable(
                 name: "UserGroups");
@@ -211,13 +258,13 @@ namespace Infrastructure.Migrations
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Tests");
 
             migrationBuilder.DropTable(
                 name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿namespace Domain.Entities
+namespace Domain.Entities;
+
+public class UserTest
 {
-    public class UserTest
-    {
-        public int UserId { get; set; }
-        public int TestId { get; set; }
-        public User User { get; set; }
-        public Test Test { get; set; }
-    }
+    public int Id { get; set; } 
+    public string Name { get; set; }
 }

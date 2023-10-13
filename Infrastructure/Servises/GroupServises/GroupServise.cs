@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Domain;
 using Domain.DTOs.GroupDto;
-using Domain.Entities;
 using Domain.GetFilter;
 using Domain.Wapper;
 using Infrastructure.Data;
@@ -32,20 +32,20 @@ namespace Infrastructure.Servises.GroupServises
             
             await _context.SaveChangesAsync();
 
-            return new Response<GetGroupDto>("AddGroup");
+            return new Response<GetGroupDto>(HttpStatusCode.OK, "Group added!");
         }
 
         public async Task<Response<GetGroupDto>> Delete(int id)
         {
             var group =await _context.Groups.FindAsync(id);
            
-            if (group == null) return new Response<GetGroupDto>("Group Notfound");
+            if (group == null) return new Response<GetGroupDto>(HttpStatusCode.NotFound, "Group Notfound");
             
             _context.Groups.Remove(group);  
             
             await _context.SaveChangesAsync();
             
-            return new Response<GetGroupDto>("Saccessfuly Delete Group");
+            return new Response<GetGroupDto>(HttpStatusCode.Accepted, "Saccessfuly Delete Group");
         }
 
         public async Task<Response<GetGroupDto>> GetById(int id)
@@ -53,7 +53,7 @@ namespace Infrastructure.Servises.GroupServises
             var group = await _context.Groups.Include(x => x.Course)
                 .FirstOrDefaultAsync(x => x.Id == id);
             
-            if (group == null) return new Response<GetGroupDto>("Group Not found");
+            if (group == null) return new Response<GetGroupDto>(HttpStatusCode.NotFound ,"Group Not found");
             
             var resGroup= new GetGroupDto()
             {
@@ -98,7 +98,7 @@ namespace Infrastructure.Servises.GroupServises
 
             await   _context.SaveChangesAsync();
            
-            return new Response<GetGroupDto>("Saccessfuly Update Group");
+            return new Response<GetGroupDto>(HttpStatusCode.Accepted,"Saccessfuly Update Group");
         }
     }
 }

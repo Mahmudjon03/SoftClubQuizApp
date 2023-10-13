@@ -1,7 +1,8 @@
+using System.Net;
 using AutoMapper;
+using Domain;
 using Domain.DTOs.AnswerDTOs;
 using Domain.DTOs.QuestionDTOs;
-using Domain.Entities;
 using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,7 @@ public class QuestionService : IQuestionService
     public async Task<Response<GetQuestionDTO>> GetQuestion(int id)
     {
         var question = await _dataContext.Questions.FindAsync(id);
-        if (question == null) return new Response<GetQuestionDTO>("Data not found!");
+        if (question == null) return new Response<GetQuestionDTO>(HttpStatusCode.NotFound, "Data not found!");
         var mapped = new GetQuestionDTO()
         {
             Id = question.Id,
@@ -47,7 +48,7 @@ public class QuestionService : IQuestionService
             {
                 Id = a.Id,
                 Name = a.Name,
-                Status = a.Status,
+                Status = a.IsCorrect,
                 QuestionId = a.QuestionId
             }).ToList()
         };
@@ -64,7 +65,7 @@ public class QuestionService : IQuestionService
             {
                 Id = a.Id,
                 Name = a.Name,
-                Status = a.Status,
+                Status = a.IsCorrect,
                 QuestionId = a.QuestionId
             }).ToList()
         }).ToListAsync();
