@@ -1,18 +1,13 @@
-
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Domain.Entities
+namespace Domain
 {
     public class Answer
     {
         [Key]
         public int Id { get; set; }
         [MaxLength(300)]
-        public string Name { get; set; }
-        public bool Status { get; set; } = false
-        [ForeignKey("Question")]
+        public string Name { get; set; } = null!;
+        public bool IsCorrect { get; set; }=false;
         public int QuestionId  { get; set; }
-        public Question Question  { get; set; }
+        public virtual Question Question  { get; set; }=null!;
     }
 }

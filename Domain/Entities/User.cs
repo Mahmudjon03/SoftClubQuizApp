@@ -1,7 +1,4 @@
-﻿using Domain.Enums;
-using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities
+﻿namespace Domain
 {
     public class User
     {
@@ -15,11 +12,13 @@ namespace Domain.Entities
         [MaxLength(50)]
         public string Email { get; set; }
             
-        public string Password { get; set; }
+        public string Password { get; set; }=null!;
         [MaxLength(50)]
-        public UserType Type { get; set; } = UserType.User;
+        public UserType UserType { get; set; } = UserType.User;
         public Status Active { get; set; }
-        public List<UserTest> UserTest { get; set; } = new List<UserTest>();
-        public List<UserGroup> UserGroup { get; set; }= new List<UserGroup>();
+        public virtual List<StudentTest>? StudentTests { get; set; }=null;
+        public virtual List<Test>? MentorTests { get; set; }=null;
+        public virtual List<UserGroup> UserGroup { get; set; }= new List<UserGroup>();
      }
 }
+

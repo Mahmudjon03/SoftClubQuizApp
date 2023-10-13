@@ -1,8 +1,8 @@
 using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
+using Domain;
 using Domain.DTOs.QuestionDTOs;
 using Domain.DTOs.TestDTOs;
-using Domain.Entities;
 using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +40,7 @@ public class TestService : ITestService
     public async Task<Response<GetTestDTO>> GetTest(int id)
     {
         var test = await _dataContext.Tests.FindAsync(id);
-        if (test == null) return new  Response<GetTestDTO>("Data not found!");
+        // if (test == null) return new  Response<GetTestDTO>("Data not found!");
         var mapped = new GetTestDTO()
         {
             Id = test.Id,

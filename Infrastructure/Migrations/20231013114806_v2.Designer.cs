@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231010052924_dfdd")]
-    partial class dfdd
+    [Migration("20231013114806_v2")]
+    partial class v2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,11 +20,14 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.Answer", b =>
+            modelBuilder.Entity("Domain.Answer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,15 +35,16 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -49,7 +53,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Course", b =>
+            modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,8 +62,26 @@ namespace Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CourseFoto")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Domain.Entities.UserTest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -67,10 +89,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Courses");
+                    b.ToTable("UserTests");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Group", b =>
+            modelBuilder.Entity("Domain.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,7 +105,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -92,7 +115,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Groups");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Question", b =>
+            modelBuilder.Entity("Domain.Question", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +128,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.HasKey("Id");
 
@@ -114,7 +138,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Test", b =>
+            modelBuilder.Entity("Domain.StudentTest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,16 +146,45 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("StudentTest");
+                });
+
+            modelBuilder.Entity("Domain.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MentorId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MentorId");
 
                     b.ToTable("Tests");
                 });
 
-            modelBuilder.Entity("Domain.Entities.User", b =>
+            modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,7 +219,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("UserType")
                         .HasMaxLength(50)
                         .HasColumnType("integer");
 
@@ -175,7 +228,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserGroup", b =>
+            modelBuilder.Entity("Domain.UserGroup", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -190,25 +243,10 @@ namespace Infrastructure.Migrations
                     b.ToTable("UserGroups");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserTest", b =>
+            modelBuilder.Entity("Domain.Answer", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "TestId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("UserTests");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Answer", b =>
-                {
-                    b.HasOne("Domain.Entities.Question", "Question")
-                        .WithMany()
+                    b.HasOne("Domain.Question", "Question")
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -216,9 +254,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Group", b =>
+            modelBuilder.Entity("Domain.Group", b =>
                 {
-                    b.HasOne("Domain.Entities.Course", "Course")
+                    b.HasOne("Domain.Course", "Course")
                         .WithMany("Group")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -227,10 +265,10 @@ namespace Infrastructure.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Question", b =>
+            modelBuilder.Entity("Domain.Question", b =>
                 {
-                    b.HasOne("Domain.Entities.Test", "Test")
-                        .WithMany("Question")
+                    b.HasOne("Domain.Test", "Test")
+                        .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -238,15 +276,45 @@ namespace Infrastructure.Migrations
                     b.Navigation("Test");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserGroup", b =>
+            modelBuilder.Entity("Domain.StudentTest", b =>
                 {
-                    b.HasOne("Domain.Entities.Group", "Group")
+                    b.HasOne("Domain.User", "Student")
+                        .WithMany("StudentTests")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Test");
+                });
+
+            modelBuilder.Entity("Domain.Test", b =>
+                {
+                    b.HasOne("Domain.User", "Mentor")
+                        .WithMany("MentorTests")
+                        .HasForeignKey("MentorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Mentor");
+                });
+
+            modelBuilder.Entity("Domain.UserGroup", b =>
+                {
+                    b.HasOne("Domain.Group", "Group")
                         .WithMany("userGroup")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.User", "User")
+                    b.HasOne("Domain.User", "User")
                         .WithMany("UserGroup")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -257,47 +325,33 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserTest", b =>
-                {
-                    b.HasOne("Domain.Entities.Test", "Test")
-                        .WithMany("UserTest")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("UserTest")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Test");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Course", b =>
+            modelBuilder.Entity("Domain.Course", b =>
                 {
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Group", b =>
+            modelBuilder.Entity("Domain.Group", b =>
                 {
                     b.Navigation("userGroup");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Test", b =>
+            modelBuilder.Entity("Domain.Question", b =>
                 {
-                    b.Navigation("Question");
-
-                    b.Navigation("UserTest");
+                    b.Navigation("Answers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.User", b =>
+            modelBuilder.Entity("Domain.Test", b =>
                 {
-                    b.Navigation("UserGroup");
+                    b.Navigation("Questions");
+                });
 
-                    b.Navigation("UserTest");
+            modelBuilder.Entity("Domain.User", b =>
+                {
+                    b.Navigation("MentorTests");
+
+                    b.Navigation("StudentTests");
+
+                    b.Navigation("UserGroup");
                 });
 #pragma warning restore 612, 618
         }
