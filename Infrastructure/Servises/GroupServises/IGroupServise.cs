@@ -1,7 +1,7 @@
-﻿
+﻿using Domain;
 using Domain.DTOs.GroupDto;
+using Domain.Entities;
 using Domain.GetFilter;
-using Domain.Wapper;
 
 namespace Infrastructure.Servises.GroupServises
 {
@@ -12,6 +12,13 @@ namespace Infrastructure.Servises.GroupServises
         Task<Response<GetGroupDto>> Delete(int id);
         Task<Response<GetGroupDto>>  Update(AddGroupDto group);
         Task<Response<GetGroupDto>> AddGroup(AddGroupDto group);
+        Task<Response<GetGroupDto>> AddStudentToGroup(AddStudentToGroupDto student);
+        Task<Response<GetGroupDto>> AddMentorToGroup(AddStudentToGroupDto userGroup);
+        Task<Response<GetGroupDto>> DeleteStudent(AddStudentToGroupDto model);
+        Task<Response<GetGroupDto>> DeleteMentor(AddStudentToGroupDto model);
+        Task<PoginationResponse<List<GetGroupDto>>> GetMentor(GetFilter filter);
+        Task<PoginationResponse<List<GetGroupDto>>> GetStudent(GetFilter filter);
+
 
     }
 

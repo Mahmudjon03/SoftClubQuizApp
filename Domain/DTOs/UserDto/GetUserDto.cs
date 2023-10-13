@@ -1,10 +1,10 @@
-﻿using Domain.Enums;
+﻿
+namespace Domain;
 
-namespace Domain.DTOs.UserDto
-{
     public class GetUserDto:BaseUserDto
     {
         public string Type { get; set; }
-        public string GroupName { get; set; }
+        public string active { get; set; }
+      
     }
-}
+

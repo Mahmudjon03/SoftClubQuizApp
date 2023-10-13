@@ -1,8 +1,6 @@
 using AutoMapper;
-using Domain.DTOs.AnswerDTOs;
-using Domain.DTOs.QuestionDTOs;
+using Domain;
 using Domain.Entities;
-using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

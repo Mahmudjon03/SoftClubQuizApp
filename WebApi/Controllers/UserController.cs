@@ -1,6 +1,5 @@
-﻿using Domain.DTOs.UserDto;
+﻿using Domain;
 using Domain.GetFilter;
-using Domain.Wapper;
 using Infrastructure.Servises.UserServise;
 using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
@@ -27,6 +26,6 @@ namespace WebApi.Controllers
         public async Task<Response<GetUserDto>> GetById(int id)=> await _user.GetUserById(id);
         [HttpPut("UpdateUser")]
         public async Task<Response<GetUserDto>> Update(AddUserDto user)=> await _user.UpdateUser(user);
-       
+
     }
 }

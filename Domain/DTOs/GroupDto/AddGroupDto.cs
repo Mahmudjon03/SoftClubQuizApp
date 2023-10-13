@@ -1,7 +1,7 @@
 ﻿
-namespace Domain.DTOs.GroupDto
+namespace Domain
 {
-    public class AddGroupDto:BaseCourseDto
+    public class AddGroupDto:BaseGroupDto
     {
         public int CourseId { get; set; }
     }

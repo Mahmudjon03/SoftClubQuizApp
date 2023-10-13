@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231010052924_dfdd")]
-    partial class dfdd
+    [Migration("20231012102934_project")]
+    partial class project
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("integer");
@@ -59,11 +60,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CourseFoto")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -83,7 +86,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
@@ -105,7 +109,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.HasKey("Id");
 
@@ -124,7 +129,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.HasKey("Id");
 
@@ -159,14 +165,15 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("UserType")
                         .HasMaxLength(50)
                         .HasColumnType("integer");
 
@@ -208,7 +215,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Answer", b =>
                 {
                     b.HasOne("Domain.Entities.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -230,7 +237,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Question", b =>
                 {
                     b.HasOne("Domain.Entities.Test", "Test")
-                        .WithMany("Question")
+                        .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -286,9 +293,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("userGroup");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("Domain.Entities.Test", b =>
                 {
-                    b.Navigation("Question");
+                    b.Navigation("Questions");
 
                     b.Navigation("UserTest");
                 });

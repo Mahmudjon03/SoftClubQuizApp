@@ -1,7 +1,5 @@
-using Domain.DTOs.AnswerDTOs;
-using Domain.Entities;
+namespace Domain;
 
-namespace Domain.DTOs.QuestionDTOs;
 
 public class GetQuestionDTO
 {

@@ -1,6 +1,5 @@
-using Domain.Entities;
 
-namespace Domain.DTOs.TestDTOs;
+namespace Domain;
 
 public class AddTestDTO
 {

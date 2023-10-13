@@ -35,7 +35,7 @@ namespace Web
         {
             return await Task.Run(() =>
             {
-                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Files", folderName, fileName);
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", folderName, fileName);
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);

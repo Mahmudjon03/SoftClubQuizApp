@@ -1,5 +1,5 @@
 ﻿
-namespace Domain.DTOs.UserDto
+namespace Domain
 {
     public class AddUserDto:BaseUserDto
     {

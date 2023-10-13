@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class dfdd : Migration
+    public partial class project : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +17,8 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CourseFoto = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CourseFoto = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,8 +48,8 @@ namespace Infrastructure.Migrations
                     LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<int>(type: "integer", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    UserType = table.Column<int>(type: "integer", maxLength: 50, nullable: false),
                     Active = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -63,7 +63,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CourseId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -83,7 +83,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     TestId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -125,8 +125,8 @@ namespace Infrastructure.Migrations
                 name: "UserGroups",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    GroupId = table.Column<int>(type: "integer", nullable: false)
+                    GroupId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,7 +151,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     QuestionId = table.Column<int>(type: "integer", nullable: false)
                 },

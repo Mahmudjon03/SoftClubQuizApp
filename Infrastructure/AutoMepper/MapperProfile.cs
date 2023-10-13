@@ -1,12 +1,7 @@
 using AutoMapper;
-using Domain.DTOs.AnswerDTOs;
-using Domain.DTOs.CourseDto;
+using Domain;
 using Domain.DTOs.GroupDto;
-using Domain.DTOs.QuestionDTOs;
-using Domain.DTOs.TestDTOs;
-using Domain.DTOs.UserDto;
 using Domain.Entities;
-using Web;
 
 namespace Infrastructure;
 
@@ -19,13 +14,16 @@ namespace Infrastructure;
 
         CreateMap<AddUserDto, User>().ReverseMap();
         CreateMap<User, GetUserDto>()
-            .ForMember(gu => gu.Type, opt => opt.MapFrom(u => u.Type.ToString()))
-            .ForMember(gu => gu.GroupName, opt => opt.MapFrom(u => u.UserGroup.Select(g => g.Group.Name)));
+            .ForMember(gu => gu.Type, opt => opt.MapFrom(u => u.UserType.ToString())).
+              ForMember(gu => gu.active, opt => opt.MapFrom(u => u.Active.ToString()));
+
+
         CreateMap<AddUserDto, GetUserDto>().ReverseMap();
 
           
 
         CreateMap<AddCourseDto,GetCourseDto>().ReverseMap();
+
         CreateMap<Course, GetCourseDto>().ReverseMap();
 
         CreateMap<Group, GetGroupDto>()
@@ -33,12 +31,7 @@ namespace Infrastructure;
         CreateMap<AddGroupDto,Group>().ReverseMap();
         CreateMap<AddGroupDto, GetGroupDto>().ReverseMap();
 
-
-
-    }
-
-
-        CreateMap<Test, AddTestDTO>().ReverseMap();
+        CreateMap<Test,AddTestDTO>().ReverseMap();
         CreateMap<Test, UpdateTestDTO>().ReverseMap();
 
         CreateMap<Question, AddQuestionDTO>().ReverseMap();
@@ -46,6 +39,9 @@ namespace Infrastructure;
 
         CreateMap<Answer, AddAnswerDTO>().ReverseMap();
         CreateMap<Answer, UpdateUnswerDTO>().ReverseMap();
+
+        CreateMap<AddStudentToGroupDto,UserGroup>().ReverseMap();  
     } 
 }
+
 
