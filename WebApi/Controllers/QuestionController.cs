@@ -1,5 +1,4 @@
-using Domain.DTOs.QuestionDTOs;
-using Domain.Wapper;
+using Domain;
 using Infrastructure.Servises.QuestionServices;
 using Microsoft.AspNetCore.Mvc;
 

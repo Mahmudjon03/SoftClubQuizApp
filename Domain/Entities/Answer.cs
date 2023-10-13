@@ -7,6 +7,7 @@ namespace Domain
         [MaxLength(300)]
         public string Name { get; set; } = null!;
         public bool IsCorrect { get; set; }=false;
+        [ForeignKey("Question")]
         public int QuestionId  { get; set; }
         public virtual Question Question  { get; set; }=null!;
     }

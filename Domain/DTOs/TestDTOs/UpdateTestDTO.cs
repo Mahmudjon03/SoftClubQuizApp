@@ -1,4 +1,4 @@
-namespace Domain.DTOs.TestDTOs;
+namespace Domain;
 
 public class UpdateTestDTO
 {

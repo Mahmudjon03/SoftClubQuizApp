@@ -1,4 +1,4 @@
-﻿namespace Domain.Wapper;
+﻿namespace Domain;
 
     public class PoginationResponse<T> :Response<T>
     {

@@ -1,7 +1,5 @@
-﻿using Domain.DTOs.CourseDto;
-using Domain.DTOs.UserDto;
+﻿using Domain;
 using Domain.GetFilter;
-using Domain.Wapper;
 
 namespace Infrastructure.Servises.CourseServises;
 

@@ -1,6 +1,5 @@
-﻿using Domain.Enums;
-
-namespace Domain.DTOs.UserDto
+﻿
+namespace Domain
 
 {
     public class BaseUserDto
@@ -18,7 +17,6 @@ namespace Domain.DTOs.UserDto
         public string Password { get; set; }
       
         public string Login { get; set; }
-        public Status Active { get; set; }
        
     }
 }

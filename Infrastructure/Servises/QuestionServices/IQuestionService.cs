@@ -1,5 +1,4 @@
-using Domain.DTOs.QuestionDTOs;
-using Domain.Wapper;
+using Domain;
 
 namespace Infrastructure.Servises.QuestionServices;
 

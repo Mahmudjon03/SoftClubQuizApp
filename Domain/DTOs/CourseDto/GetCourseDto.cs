@@ -1,7 +1,8 @@
-﻿namespace Domain.DTOs.CourseDto
+﻿namespace Domain
 {
-    public class GetCourseDto:BaseCourseDto
+    public class GetCourseDto:BaseGroupDto
     {
         public string? CourseFoto { get; set; }
+        public List<GetGroupDto> Group { get; set; }
     }
 }

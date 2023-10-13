@@ -1,7 +1,5 @@
 using AutoMapper;
 using Domain;
-using Domain.DTOs.AnswerDTOs;
-using Domain.Wapper;
 using Infrastructure.Data;
 
 namespace Infrastructure.Servises.AnswerServices;

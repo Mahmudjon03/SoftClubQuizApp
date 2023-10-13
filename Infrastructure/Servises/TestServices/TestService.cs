@@ -1,9 +1,5 @@
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using Domain;
-using Domain.DTOs.QuestionDTOs;
-using Domain.DTOs.TestDTOs;
-using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

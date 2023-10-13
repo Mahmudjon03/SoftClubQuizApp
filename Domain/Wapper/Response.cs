@@ -1,7 +1,7 @@
 ﻿
 using System.Net;
 
-namespace Domain.Wapper;
+namespace Domain;
 
     public class Response<T>
     {

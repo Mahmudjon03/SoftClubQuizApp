@@ -1,11 +1,6 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain;
-using Domain.DTOs.CourseDto;
-using Domain.DTOs.UserDto;
-using Domain.GetFilter;
-using Domain.Wapper;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
 using Web;
@@ -74,6 +69,7 @@ public class CourseServise : ICourseServise
             Id = c.Id,
             Name = c.Name,
             CourseFoto = c.CourseFoto,
+            Group= _mapper.Map<List<GetGroupDto>>(c.Group).ToList(),
         }).ToListAsync();
         return new PoginationResponse<List<GetCourseDto>>(resCourse, filter.PageNumber, filter.PageSize, totalRecords);
 

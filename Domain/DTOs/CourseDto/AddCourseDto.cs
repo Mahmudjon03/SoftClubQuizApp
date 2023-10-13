@@ -1,11 +1,10 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace Domain.DTOs.CourseDto
+namespace Domain
 {
-    public class AddCourseDto:BaseCourseDto
+    public class AddCourseDto:BaseGroupDto
     {
-      public IFormFile CourseFoto { get; set; }
+      public IFormFile ?CourseFoto { get; set; }
 
     }
 }

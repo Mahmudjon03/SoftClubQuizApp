@@ -1,4 +1,9 @@
+
+
+namespace Domain;
+
 namespace Domain.DTOs.TestDTOs;
+
 
 public class AddTestDTO
 {

@@ -1,5 +1,5 @@
-using Domain.DTOs.TestDTOs;
-using Domain.Wapper;
+using Domain;
+
 
 namespace Infrastructure.Servises.TestServices;
 

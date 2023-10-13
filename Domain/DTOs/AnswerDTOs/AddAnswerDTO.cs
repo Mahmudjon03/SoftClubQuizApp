@@ -1,4 +1,4 @@
-namespace Domain.DTOs.AnswerDTOs;
+namespace Domain;
 
 public class AddAnswerDTO
 {

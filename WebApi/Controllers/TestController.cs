@@ -1,5 +1,4 @@
-using Domain.DTOs.TestDTOs;
-using Domain.Wapper;
+using Domain;
 using Infrastructure.Servises.TestServices;
 using Microsoft.AspNetCore.Mvc;
 

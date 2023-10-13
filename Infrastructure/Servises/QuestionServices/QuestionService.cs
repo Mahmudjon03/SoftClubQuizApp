@@ -1,9 +1,6 @@
 using System.Net;
 using AutoMapper;
 using Domain;
-using Domain.DTOs.AnswerDTOs;
-using Domain.DTOs.QuestionDTOs;
-using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
