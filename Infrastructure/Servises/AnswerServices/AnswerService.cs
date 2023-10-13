@@ -1,6 +1,5 @@
 using AutoMapper;
 using Domain;
-using Domain.Entities;
 using Infrastructure.Data;
 
 namespace Infrastructure.Servises.AnswerServices;

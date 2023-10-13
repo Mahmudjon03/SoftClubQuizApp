@@ -15,10 +15,13 @@ public class TestController : ControllerBase
     {
         _testService = testService;
     }
+    // git checkout -b branch_name
     // git add .
+    // git status
     // git commit -m "version 2"
-    // git push origin main 
-    
+    // git push origin main  or // git push --set-upstream origin branch_name
+    // git pull or // git pull origin main
+
     [HttpGet("Get-tests")]
     public async Task<Response<List<GetTestDTO>>> GetTests()
     {

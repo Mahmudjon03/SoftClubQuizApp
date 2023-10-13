@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Entities
+namespace Domain
 {
     public class User
     {
@@ -14,12 +14,13 @@ namespace Domain.Entities
         [MaxLength(50)]
         public string Email { get; set; }
         [MaxLength(50)]
-        public string Password { get; set; }
-
+        public string Password { get; set; };
         [MaxLength(50)]
         public UserType UserType { get; set; } = UserType.User;
         public Status Active { get; set; }
-        public List<UserTest> UserTest { get; set; } = new List<UserTest>();
-        public List<UserGroup> UserGroup { get; set; }= new List<UserGroup>();
+        public virtual List<StudentTest>? StudentTests { get; set; }
+        public virtual List<Test>? MentorTests { get; set; }
+        public virtual List<UserGroup> UserGroup { get; set; }
      }
 }
+

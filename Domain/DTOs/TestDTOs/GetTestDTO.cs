@@ -1,6 +1,5 @@
-
-
 namespace Domain;
+using Domain.DTOs.QuestionDTOs;
 
 public class GetTestDTO
 {

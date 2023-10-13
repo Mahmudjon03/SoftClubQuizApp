@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Domain;
-using Domain.Entities;
-using Domain.GetFilter;
+using System.Net;
+using AutoMapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +33,7 @@ public class UserServise : IUserServise
     public async Task<Response<GetUserDto>> DeleteUser(int id)
     {
         var Delete =await _context.Users.FindAsync(id);
-        if (Delete == null) return new Response<GetUserDto>("User Not Found");
+        if (Delete == null) return new Response<GetUserDto>(HttpStatusCode.NotFound ,"User Not Found");
     var resUser= _mapper.Map<GetUserDto>(Delete);
          _context.Users.Remove(Delete);
          await _context.SaveChangesAsync();
@@ -80,7 +80,7 @@ public class UserServise : IUserServise
     {
         var users = await _context.Users.FindAsync(id);
        
-        if (users == null) return new Response<GetUserDto>("User Not Found");
+        if (users == null) return new Response<GetUserDto>(HttpStatusCode.NotFound, "User Not Found");
         
         var resUser=_mapper.Map<GetUserDto>(users);
         
@@ -91,7 +91,7 @@ public class UserServise : IUserServise
     public async Task<Response<GetUserDto>> UpdateUser(AddUserDto user)
     {
         var _user = await _context.Users.FindAsync(user.Id);
-        if (_user == null) return new Response<GetUserDto>("User Not Found");
+        if (_user == null) return new Response<GetUserDto>(HttpStatusCode.NotFound, "User Not Found");
         _mapper.Map(user,_user);
         var resUser=_mapper.Map<GetUserDto>(user);
         await _context.SaveChangesAsync();

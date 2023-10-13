@@ -1,14 +1,13 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities
+﻿namespace Domain
 {
     public class Test
     {
         public int Id { get; set; }
-        [MaxLength(300)]
-        public string Name { get; set; }
-        public List<Question> Questions { get; set; }
-        public List<UserTest> UserTest { get; set; }
+        [MaxLength(15)]
+        public string Name { get; set; } = null!;
+        public virtual List<Question>? Questions { get; set; }
+        public int MentorId { get; set; }
+        public virtual User Mentor { get; set; } = null!;
     }
 }
+
