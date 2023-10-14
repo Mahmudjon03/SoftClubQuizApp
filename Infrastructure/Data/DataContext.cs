@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -23,5 +22,9 @@ namespace Infrastructure.Data
             modelBuilder.Entity<UserGroup>().HasKey(ug => new { ug.UserId, ug.GroupId });
             base.OnModelCreating(modelBuilder);
         }
+    }
+
+    public class UserTest
+    {
     }
 }

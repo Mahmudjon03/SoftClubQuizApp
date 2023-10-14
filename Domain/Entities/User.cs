@@ -17,7 +17,7 @@
         public UserType UserType { get; set; } = UserType.User;
         public Status Active { get; set; }
         public virtual List<StudentTest>? StudentTests { get; set; }=null;
-        public virtual List<Test>? MentorTests { get; set; }=null;
+        public virtual List<Test> MentorTests { get; set; }
         public virtual List<UserGroup> UserGroup { get; set; }= new List<UserGroup>();
      }
 }
