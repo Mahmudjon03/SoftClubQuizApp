@@ -7,4 +7,5 @@ public class AddTestDTO
 {
     public int MentorId { get; set; }
     public string Name { get; set; } = null!;
+    public int MentorId { get; set; }
 }

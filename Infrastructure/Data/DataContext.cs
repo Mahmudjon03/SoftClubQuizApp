@@ -22,4 +22,8 @@ namespace Infrastructure.Data
             base.OnModelCreating(modelBuilder);
         }
     }
+
+    public class UserTest
+    {
+    }
 }
