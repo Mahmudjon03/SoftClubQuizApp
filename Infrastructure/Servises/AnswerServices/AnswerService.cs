@@ -23,7 +23,7 @@ public class AnswerService : IAnswerService
         return new Response<string>("Answer added!");
     }
 
-    public async Task<Response<string>> DleteAnswer(int id)
+    public async Task<Response<string>> DeleteAnswer(int id)
     {
         var answer = await _dataContext.Answers.FindAsync(id);
         if (answer == null) return new Response<string>("Data not found!");

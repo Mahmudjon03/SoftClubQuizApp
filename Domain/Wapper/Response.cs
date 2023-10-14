@@ -14,7 +14,11 @@ namespace Domain;
             StatusCode = 200;
             Data = data;
         }
-        public Response(HttpStatusCode code,string messenge)
+    public Response(string messenge)
+    {
+        Messenge = messenge;
+    }
+    public Response(HttpStatusCode code,string messenge)
         {
             StatusCode = (int)code;
             Messenge = messenge;

@@ -4,6 +4,7 @@ using System.Net;
 using AutoMapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Domain.GetFilter;
 
 namespace Infrastructure.Servises.UserServise;
 

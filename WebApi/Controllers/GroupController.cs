@@ -34,12 +34,12 @@ namespace WebApi.Controllers
       
         [HttpPost("AddMentorToGrpoup")]
         public async Task<Response<GetGroupDto>> addMentor(AddStudentToGroupDto userGroup) => await _group.AddMentorToGroup(userGroup);
-       
+
         [HttpDelete("DeleteStudent")]
-        public async Task<Response<GetGroupDto>> DeleteStudent(int id ,int ig)=>await _group.DeleteStudent(id,ig);
+        public async Task<Response<GetGroupDto>> DeleteStudent(AddStudentToGroupDto model) => await _group.DeleteStudent(model);
       
-      //  [HttpPut("DeleteMentor")]
-      // public async Task<Response<GetGroupDto>> DeleteMentor(int id) => await _group.DeleteStudent(id);
+        [HttpPut("DeleteMentor")]
+        public async Task<Response<GetGroupDto>> DeleteMentor(AddStudentToGroupDto model) => await _group.DeleteStudent(model);
 
         [HttpGet("GetMentorFromGroup")]
         public async Task<PoginationResponse<List<GetGroupDto>>> GetMentor([FromQuery]GetFilter filter) => await _group.GetMentor(filter);

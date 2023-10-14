@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -16,7 +15,6 @@ namespace Infrastructure.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
-        public DbSet<UserTest> UserTests { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
