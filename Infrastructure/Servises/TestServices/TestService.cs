@@ -29,8 +29,10 @@ public class TestService : ITestService
     {
         var test = await _dataContext.Tests.FindAsync(id);
         if (test == null) return new Response<string>("Data not found!");
+
         _dataContext.Tests.Remove(test);
         await _dataContext.SaveChangesAsync();
+
         return new Response<string>("Test deleted!");
     }
 

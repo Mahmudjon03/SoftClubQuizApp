@@ -29,18 +29,7 @@ namespace WebApi.Controllers
         [HttpPost("AddGroups")]
         public async Task<Response<GetGroupDto>> AddGroup([FromForm] AddGroupDto model) => await _group.AddGroup(model);
        
-        [HttpPost("AddStudentToGroup")]
-        public async Task<Response<GetGroupDto>> AddStudentToGroup(AddStudentToGroupDto userGroup)=> await _group.AddStudentToGroup(userGroup);
-      
-        [HttpPost("AddMentorToGrpoup")]
-        public async Task<Response<GetGroupDto>> addMentor(AddStudentToGroupDto userGroup) => await _group.AddMentorToGroup(userGroup);
-
-        [HttpDelete("DeleteStudent")]
-        public async Task<Response<GetGroupDto>> DeleteStudent(AddStudentToGroupDto model) => await _group.DeleteStudent(model);
-      
-        [HttpPut("DeleteMentor")]
-        public async Task<Response<GetGroupDto>> DeleteMentor(AddStudentToGroupDto model) => await _group.DeleteStudent(model);
-
+       
         [HttpGet("GetMentorFromGroup")]
         public async Task<PoginationResponse<List<GetGroupDto>>> GetMentor([FromQuery]GetFilter filter) => await _group.GetMentor(filter);
 

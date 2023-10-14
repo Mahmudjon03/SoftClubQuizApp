@@ -14,6 +14,7 @@ using Infrastructure.Servises.UserServise;
 using Microsoft.EntityFrameworkCore;
 using Web;
 using Infrastructure.Servises.MentorServise;
+using Infrastructure.Servises.AddStudentNewGroup;
 
 var builder = WebApplication.CreateBuilder(args);
 var con = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -28,6 +29,8 @@ builder.Services.AddScoped<IUserServise,UserServise>();
 builder.Services.AddScoped<ICourseServise,CourseServise>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IGroupServise, GroupServise>();
+builder.Services.AddScoped<IGroupStudentServise, GroupStudentServise>();
+
 
 builder.Services.AddScoped<ITestService,TestService>();
 builder.Services.AddScoped<IQuestionService,QuestionService>();

@@ -72,7 +72,7 @@ public class StudentTestingService : IStudentTestingService
 
         var query = _dataContext.UserGroups
             .Where(x => x.UserId == user.Id)
-            .SelectMany(x => x.Group.userGroup)
+            .SelectMany(x => x.Group.Users)
             .Where(u => u.User.UserType == UserType.Mentor)
             .SelectMany(t => t.User.MentorTests.Where(x=>x.IsActive))
             .AsQueryable();
