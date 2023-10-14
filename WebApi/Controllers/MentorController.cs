@@ -17,7 +17,7 @@ namespace WebApi.Controllers
         }
         [HttpGet("GetMentor")]
     public async Task<PoginationResponse<List<GetUserDto>>> GetMentor([FromQuery]GetFilter filter) =>await _mentor.GetMentor(filter);
-        [HttpPut("AddMentor")]
+        [HttpPost("AddMentor")]
      public  async Task<Response<GetUserDto>> AddMentor(int id)=> await _mentor.AddMentor(id);
     }
 

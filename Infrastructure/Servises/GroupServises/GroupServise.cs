@@ -5,6 +5,7 @@ using Domain.GetFilter;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.Threading.Tasks.Dataflow;
 
 namespace Infrastructure.Servises.GroupServises
 {
@@ -126,12 +127,24 @@ namespace Infrastructure.Servises.GroupServises
                 .FirstOrDefaultAsync(x => x.Id == id);
             
             if (group == null) return new Response<GetGroupDto>(HttpStatusCode.NotFound ,"Group Not found");
+             
             
             var resGroup= new GetGroupDto()
             {
                 Id = id,
                 Name = group.Name ,
                 CourseName = group.Course.Name,
+                Students = _mapper.Map<List<GetUserDto>>(group.Users.Select(e => e.User)).Where(c=>c.Type=="Student").ToList(),
+                Mentor =  _mapper.Map<List<GetUserDto>>(group.Users.Select(e => e.User)).Where(c => c.Type == "Mentor").ToList(),
+                Test = group.Users.Select(x=>x.User).Where(x=>x.UserType==UserType.Mentor).SelectMany(x=>x.MentorTests).Select(x=>new GetTestDTO
+                {
+                    Id=x.Id,
+                    Name=x.Name,
+  }).ToList(),
+                   
+
+
+
             };
             
             return new Response<GetGroupDto>(resGroup);
@@ -155,7 +168,7 @@ namespace Infrastructure.Servises.GroupServises
                 Id = g.Id,
                 Name = g.Name,
                 CourseName = g.Course.Name,
-                Students=_mapper.Map<List<GetUserDto>>(g.userGroup.Select(e=>e.User)).ToList(),
+                Students=_mapper.Map<List<GetUserDto>>(g.Users.Select(e=>e.User).Where(u=>u.UserType==UserType.Student)).ToList(),
                 }).ToListAsync();
             
             return new PoginationResponse<List<GetGroupDto>>(resGroup,filter.PageNumber,filter.PageSize,totalRecords);
@@ -180,7 +193,7 @@ namespace Infrastructure.Servises.GroupServises
                 Id = g.Id,
                 Name = g.Name,
                 CourseName = g.Course.Name,
-                Students = _mapper.Map<List<GetUserDto>>(g.userGroup.Select(e => e.User).Where(s=>s.UserType==UserType.Mentor)).ToList(),
+                Students = _mapper.Map<List<GetUserDto>>(g.Users.Select(e => e.User).Where(s=>s.UserType==UserType.Mentor)).ToList(),
             }).ToListAsync();
 
             return new PoginationResponse<List<GetGroupDto>>(resGroup, filter.PageNumber, filter.PageSize, totalRecords);
@@ -204,7 +217,7 @@ namespace Infrastructure.Servises.GroupServises
                 Id = g.Id,
                 Name = g.Name,
                 CourseName = g.Course.Name,
-                Students = _mapper.Map<List<GetUserDto>>(g.userGroup.Select(e => e.User).Where(m=>m.UserType==UserType.Student)).ToList(),
+                Students = _mapper.Map<List<GetUserDto>>(g.Users.Select(e => e.User).Where(m=>m.UserType==UserType.Student)).ToList(),
             }).ToListAsync();
 
             return new PoginationResponse<List<GetGroupDto>>(resGroup, filter.PageNumber, filter.PageSize, totalRecords);

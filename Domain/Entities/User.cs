@@ -14,7 +14,7 @@ namespace Domain
         [MaxLength(50)]
         public string Email { get; set; }
         [MaxLength(50)]
-        public string Password { get; set; };
+        public string Password { get; set; }
         [MaxLength(50)]
         public UserType UserType { get; set; } = UserType.User;
         public Status Active { get; set; }

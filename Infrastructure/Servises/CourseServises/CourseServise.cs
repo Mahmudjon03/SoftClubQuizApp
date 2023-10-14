@@ -1,5 +1,6 @@
 using AutoMapper;
 using Domain;
+using Domain.GetFilter;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

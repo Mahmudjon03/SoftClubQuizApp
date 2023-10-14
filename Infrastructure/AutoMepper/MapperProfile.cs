@@ -1,12 +1,7 @@
 using AutoMapper;
 using Domain;
 using Domain.DTOs.GroupDto;
-using Domain.Entities;
-using Domain.DTOs.AnswerDTOs;
-using Domain.DTOs.CourseDto;
-using Domain.DTOs.QuestionDTOs;
 using Domain.DTOs.TestDTOs;
-using Domain.DTOs.UserDto;
 namespace Infrastructure;
 
 public class MapperProfile : Profile

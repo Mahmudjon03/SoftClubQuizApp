@@ -1,6 +1,5 @@
 ﻿using Domain;
 using Domain.DTOs.GroupDto;
-using Domain.Entities;
 using Domain.GetFilter;
 
 namespace Infrastructure.Servises.GroupServises
