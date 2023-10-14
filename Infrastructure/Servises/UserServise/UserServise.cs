@@ -1,11 +1,10 @@
-﻿using System.Net;
 using AutoMapper;
 using Domain;
-using Domain.DTOs.UserDto;
-using Domain.GetFilter;
-using Domain.Wapper;
+using System.Net;
+using AutoMapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Domain.GetFilter;
 
 namespace Infrastructure.Servises.UserServise;
 
@@ -52,12 +51,28 @@ public class UserServise : IUserServise
 
         var totalRecords = await users.CountAsync();
 
-        var pogRes = users.Skip((filter.PageNumber - 1) * filter.PageSize).Take(filter.PageSize);
-
-        var resUser = _mapper.Map<List<GetUserDto>>(pogRes);
-        
-         
        
+
+       var pogRes = users.Skip((filter.PageNumber - 1) * filter.PageSize).Take(filter.PageSize);
+        //var query = await (from user in pogRes
+        //                   join ug in _context.UserGroups on user.Id equals ug.UserId
+        //                   join g in _context.Groups on ug.GroupId equals g.Id
+        //                   select new GetUserDto()
+        //                   {
+        //                       Id = user.Id,
+        //                       GroupName = ug.Group.Name,
+        //                       CourseName = ug.Group.Course.Name,
+        //                       FirstName = user.FirstName,
+        //                       LastName = user.LastName,
+        //                       active = user.Active.ToString(),
+        //                       Type = user.UserType.ToString(),
+        //                       Phone = user.Phone,
+        //                       Email = user.Email,
+        //                       Password = user.Password,
+        //                   }).ToListAsync();
+
+           var resUser = _mapper.Map<List<GetUserDto>>(pogRes);
+
         return new PoginationResponse<List<GetUserDto>>(resUser, filter.PageNumber, filter.PageSize, totalRecords);
 
     }

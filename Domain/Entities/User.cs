@@ -1,4 +1,6 @@
-﻿namespace Domain
+using System.ComponentModel.DataAnnotations;
+
+namespace Domain
 {
     public class User
     {
@@ -11,8 +13,8 @@
         public string Phone { get; set; }
         [MaxLength(50)]
         public string Email { get; set; }
-            
-        public string Password { get; set; }=null!;
+        [MaxLength(50)]
+        public string Password { get; set; }
         [MaxLength(50)]
         public UserType UserType { get; set; } = UserType.User;
         public Status Active { get; set; }

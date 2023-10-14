@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class UpdateProject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,26 +35,13 @@ namespace Infrastructure.Migrations
                     LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     UserType = table.Column<int>(type: "integer", maxLength: 50, nullable: false),
                     Active = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserTests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserTests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,8 +88,8 @@ namespace Infrastructure.Migrations
                 name: "UserGroups",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    GroupId = table.Column<int>(type: "integer", nullable: false)
+                    GroupId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,18 +135,11 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StudentId = table.Column<int>(type: "integer", nullable: false),
-                    GroupId = table.Column<int>(type: "integer", nullable: false),
                     TestId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudentTest", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StudentTest_Groups_GroupId",
-                        column: x => x.GroupId,
-                        principalTable: "Groups",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_StudentTest_Tests_TestId",
                         column: x => x.TestId,
@@ -181,7 +161,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
                     QuestionId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -209,11 +189,6 @@ namespace Infrastructure.Migrations
                 name: "IX_Questions_TestId",
                 table: "Questions",
                 column: "TestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentTest_GroupId",
-                table: "StudentTest",
-                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentTest_StudentId",
@@ -247,9 +222,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserGroups");
-
-            migrationBuilder.DropTable(
-                name: "UserTests");
 
             migrationBuilder.DropTable(
                 name: "Questions");

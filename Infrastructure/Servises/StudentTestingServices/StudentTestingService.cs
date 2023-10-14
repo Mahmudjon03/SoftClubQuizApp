@@ -1,7 +1,5 @@
 using AutoMapper;
 using Domain;
-using Domain.Enums;
-using Domain.Wapper;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,6 +1,5 @@
-﻿using Domain.DTOs.CourseDto;
+﻿using Domain;
 using Domain.GetFilter;
-using Domain.Wapper;
 using Infrastructure.Servises.CourseServises;
 using Microsoft.AspNetCore.Mvc;
 

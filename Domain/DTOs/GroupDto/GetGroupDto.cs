@@ -1,11 +1,14 @@
 ﻿
-using Domain.DTOs.UserDto;
 
-namespace Domain.DTOs.GroupDto
+namespace Domain
 {
-    public class GetGroupDto:BaseCourseDto
+    public class GetGroupDto:BaseGroupDto
     {
         public string? CourseName { get; set; } = null;
-        public List<GetUserDto>? Users { get; set; }=new();
+        public List<GetUserDto>? Students { get; set; }=new();
+        public List<GetUserDto>? Mentor { get; set; } = new();
+        public List<GetTestDTO>? Test { get; set; } = new();
+
+
     }
 }

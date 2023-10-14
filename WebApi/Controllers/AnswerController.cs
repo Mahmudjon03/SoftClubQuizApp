@@ -1,5 +1,5 @@
-using Domain.DTOs.AnswerDTOs;
-using Domain.Wapper;
+
+using Domain;
 using Infrastructure.Servises.AnswerServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +29,6 @@ public class AnswerController : ControllerBase
     [HttpDelete("Delete-answer")]
     public async Task<Response<string>> DleteAnswer(int id)
     {
-        return await _answerService.DleteAnswer(id);
+        return await _answerService.DeleteAnswer(id);
     }
 }

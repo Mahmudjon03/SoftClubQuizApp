@@ -1,4 +1,4 @@
-namespace Domain.DTOs.QuestionDTOs;
+namespace Domain;
 
 public class UpdateQuestionDTO
 {
