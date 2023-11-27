@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231013133249_v3")]
-    partial class v3
+    [Migration("20231127095358_hello")]
+    partial class hello
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,23 +73,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserTest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserTests");
                 });
 
             modelBuilder.Entity("Domain.Group", b =>
@@ -169,6 +152,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("MentorId")
                         .HasColumnType("integer");
 
@@ -212,7 +198,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -309,7 +296,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.UserGroup", b =>
                 {
                     b.HasOne("Domain.Group", "Group")
-                        .WithMany("userGroup")
+                        .WithMany("Users")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -332,7 +319,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Group", b =>
                 {
-                    b.Navigation("userGroup");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Question", b =>

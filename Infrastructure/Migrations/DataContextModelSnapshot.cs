@@ -149,6 +149,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("MentorId")
                         .HasColumnType("integer");
 
@@ -290,7 +293,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.UserGroup", b =>
                 {
                     b.HasOne("Domain.Group", "Group")
-                        .WithMany("userGroup")
+                        .WithMany("Users")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -313,7 +316,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Group", b =>
                 {
-                    b.Navigation("userGroup");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Domain.Question", b =>
